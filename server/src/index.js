@@ -12,6 +12,7 @@ const {
   registerUser,
   loginUser,
   getUserPosts,
+  getAllUsers,
   getFollowingPosts,
   followUser,
   unfollowUser,
@@ -43,6 +44,8 @@ app.post("/login", loginUser);
 app.post("/post", createPost);
 
 app.get("/user/posts/:userId", getUserPosts); // Get posts for a user by userID
+
+app.get("/allusers", getAllUsers);
 
 app.get("/following/posts/:userId", getFollowingPosts); // Get all including those post which is posted by user following
 

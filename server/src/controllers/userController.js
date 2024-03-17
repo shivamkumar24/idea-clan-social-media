@@ -35,12 +35,12 @@ const loginUser = async (req, res) => {
       bcrypt.compare(password, user.password, (error, result) => {
         if (result) {
           res.status(200).send({
-            msg: "User Login Successfully",
+            message: "User Login Successfully",
             token: jwt.sign({ userID: user._id }, "socials"),
             user: user,
           });
         } else {
-          res.status(400).send({ msg: "Wrong Credentials" });
+          res.status(400).send({ message: "Wrong Credentials" });
         }
       });
     }
@@ -56,6 +56,15 @@ const getUserPosts = async (req, res) => {
   try {
     const userPosts = await Post.find({ author: userId });
     res.status(200).json(userPosts);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find();
+    res.status(200).json(allUsers);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -119,6 +128,7 @@ module.exports = {
   registerUser,
   loginUser,
   getUserPosts,
+  getAllUsers,
   getFollowingPosts,
   followUser,
   unfollowUser,

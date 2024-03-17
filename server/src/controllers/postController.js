@@ -1,7 +1,8 @@
-const Post = require("../models/post.model");
+const { Post } = require("../models/post.model");
 
 const createPost = async (req, res) => {
   const { authorId, content } = req.body;
+  console.log("DataBack", req.body);
 
   try {
     const post = new Post({ author: authorId, content });
