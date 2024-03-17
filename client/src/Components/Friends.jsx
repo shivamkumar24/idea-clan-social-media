@@ -6,6 +6,7 @@ const Friends = () => {
   const toast = useToast();
   const [allUsers, setAllUsers] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const token = localStorage.getItem("user-token");
   const userDetails = localStorage.getItem("user-details");
   const user = JSON.parse(userDetails);
   const getFilteredUser = allUsers.filter((el) => el._id !== user._id);
@@ -27,7 +28,11 @@ const Friends = () => {
     };
 
     axios
-      .post("http://localhost:5500/follow", followData)
+      .post("http://localhost:5500/follow", followData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         toast({
           title: res.data.message,
@@ -52,7 +57,11 @@ const Friends = () => {
     };
 
     axios
-      .post("http://localhost:5500/unfollow", unfollowData)
+      .post("http://localhost:5500/unfollow", unfollowData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         toast({
           title: res.data.message,
@@ -86,8 +95,6 @@ const Friends = () => {
       clearTimeout(pageRelaod);
     }
   }, [loaded]);
-
-  console.log("Data", getFilteredUser);
 
   return (
     <Grid templateColumns="repeat(3, 1fr)" gap={4} p={"25px 20px"}>

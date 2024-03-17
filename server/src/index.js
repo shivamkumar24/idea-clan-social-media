@@ -23,7 +23,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// app.use(authMiddleware);
+app.use(authMiddleware);
 
 // GraphQL endpoint
 app.use(

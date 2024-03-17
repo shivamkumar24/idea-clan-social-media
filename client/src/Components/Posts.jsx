@@ -40,7 +40,11 @@ const Posts = () => {
 
   const handleCreatePost = () => {
     axios
-      .post("http://localhost:5500/post", createPostData)
+      .post("http://localhost:5500/post", createPostData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         toast({
           title: res.data.message,
